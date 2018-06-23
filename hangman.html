@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Hangman</title>
+
+</head>
+<body>
+    <h1>Hangman</h1>
+    <h2>Catagory:Video Games</h2>
+
+<div id="game-container">
+    <div id="word-container">
+        <p id="current-word"></p>
+    </div>
+
+    <div id="guessed-letter-container">
+        <p id="guessed-letters"></p>
+    </div>
+    <div id="buttonDiv">
+        <button id="newGame">New Game</button>
+    </div>
+    <br>
+    <div id="buttons">
+
+    </div>
+
+</div>
+
+
+<script
+  src="https://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous">
+  </script>
+
+<script>
+    var words = [
+        "rocket league","fallout", "elder scrolls"
+    ];
+
+var activeIndex = "";
+var guess="";
+var validGuesses = [ 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z' ];
+var wordDisplay = [];
+
+for( i=0; i < 26; i++){
+        var letterBtn = $("<button class='btn'>");
+        letterBtn.attr("data-letter",validGuesses[i])
+        letterBtn.text(validGuesses[i])
+        letterBtn.data(i, validGuesses[i]);
+        $("#buttons").append(letterBtn);
+        }
+
+$("#newGame").click(function(){
+    $("#current-word").empty();
+    wordDisplay=[];
+    activeIndex= Math.floor(Math.random() * words.length);
+    
+    for(a=0; a<words[activeIndex].length; a++){
+        if(words[activeIndex][a]===" "){
+            wordDisplay.push(" ");
+            
+        }
+        else{
+            wordDisplay.push("-");
+            
+        }
+
+    }
+    
+    $('#current-word').append(wordDisplay.join(''));
+      
+      $(".btn").click(function(){
+          guess=$(this).data()
+
+                 if (words[activeIndex].includes(guess.letter,[0])) {
+                 for(b=0; b<words[activeIndex].length;b++){
+                     if(words[activeIndex][b]=== guess.letter){
+                         wordDisplay.splice([b], b, guess.letter)
+                         
+                         console.log(wordDisplay);
+                     }
+                 }
+                 console.log("contains ", guess.letter);
+
+             }
+            else{
+                console.log("wrong")
+            }
+});
+      });
+
+
+
+</script>
+
+
+</body>
+</html>
