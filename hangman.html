@@ -13,10 +13,12 @@
 
 <div id="game-container">
     <div id="word-container">
+        <h3>Current Word</h3>
         <p id="current-word"></p>
     </div>
 
     <div id="guessed-letter-container">
+        <h4>Guessed letters</h4>
         <p id="guessed-letters"></p>
     </div>
     <div id="buttonDiv">
@@ -45,6 +47,7 @@ var activeIndex = "";
 var guess="";
 var validGuesses = [ 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z' ];
 var wordDisplay = [];
+var guessedLetters = [];
 
 for( i=0; i < 26; i++){
         var letterBtn = $("<button class='btn'>");
@@ -56,6 +59,7 @@ for( i=0; i < 26; i++){
 
 $("#newGame").click(function(){
     $("#current-word").empty();
+    $("#guessed-letters").empty();
     wordDisplay=[];
     activeIndex= Math.floor(Math.random() * words.length);
     
@@ -78,22 +82,25 @@ $("#newGame").click(function(){
 
                  if (words[activeIndex].includes(guess.letter,[0])) {
                  for(b=0; b<words[activeIndex].length;b++){
+                    
+                    
+                    
                      if(words[activeIndex][b]=== guess.letter){
-                         wordDisplay.splice([b], b, guess.letter)
-                         
-                         console.log(wordDisplay);
+                         wordDisplay.splice([b], 1, guess.letter);
                      }
                  }
-                 console.log("contains ", guess.letter);
-
-             }
-            else{
-                console.log("wrong")
             }
+
+                else{
+                    guessedLetters.push(guess.letter);
+                    $("#guessed-letters").empty();   
+                    $("#guessed-letters").append(guessedLetters);
+                    console.log(guessedLetters)
+                }
+            $("#current-word").empty();
+            $('#current-word').append(wordDisplay.join(''));
 });
       });
-
-
 
 </script>
 
